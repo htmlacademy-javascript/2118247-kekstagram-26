@@ -14,4 +14,4 @@ function stringLenghtValidation(str, maxLen)
   return(false);
 }
 
-export {randomNumber, stringLenghtValidation}
+export {randomNumber, stringLenghtValidation};
