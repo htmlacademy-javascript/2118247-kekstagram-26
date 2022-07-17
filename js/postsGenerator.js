@@ -1,4 +1,4 @@
-import {randomNumber, stringLenghtValidation} from './helper.js';
+import {randomNumber, stringLengthValidation} from './helper.js';
 
 const maleNames = ['Александр', 'Максим', 'Михаил', 'Марк', 'Иван', 'Артем', 'Лев', 'Дмитрий', 'Матвей', 'Даниил'];
 const femaleNames = ['София', 'Анна', 'Мария', 'Алиса', 'Ева', 'Виктория', 'Полина', 'Варвара', 'Александра', 'Анастасия'];
@@ -11,11 +11,11 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-function generatePhotos() {
-  const photos = [];
+function generatePosts() {
+  const posts = [];
 
   for (let i = 1; i <= 25; i++) {
-    const photo = {
+    const post = {
       id: i,
       url: `photos/${  i  }.jpg`,
       description: 'Геленджик 2022',
@@ -23,11 +23,10 @@ function generatePhotos() {
       comments: generateComments()
     };
 
-    photos.push(photo);
+    posts.push(post);
   }
 
-  // console.log(photos);
-  return photos;
+  return posts;
 }
 
 function generateComments()
@@ -51,7 +50,7 @@ function generateComments()
     const comment = {
       id: id,
       avatar: `img/avatar-${  [randomNumber(1,6)]  }.svg`,
-      message: stringLenghtValidation(message, 1000)
+      message: stringLengthValidation(message, 1000)
         ? message
         : '',
       name: randomNumber(0, 1)
@@ -65,4 +64,4 @@ function generateComments()
   return comments;
 }
 
-export {generatePhotos};
+export {generatePosts};
