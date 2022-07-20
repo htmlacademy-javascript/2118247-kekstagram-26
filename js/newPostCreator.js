@@ -35,7 +35,8 @@ pristine.addValidator(postHashtag, duplicateHashtagValidator,
 
 uploadForm.addEventListener('submit', (evt) => {
   if(!pristine.validate()) {
-    evt.preventDefault();}
+    evt.preventDefault();
+  }
 });
 
 const close = () => {
