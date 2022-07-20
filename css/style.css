@@ -1395,3 +1395,9 @@ main {
 .hidden {
   display: none;
 }
+
+.text-error{
+  color:#e90000;
+  font-size: 12px;
+  text-transform:none;
+}
