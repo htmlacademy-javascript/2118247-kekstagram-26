@@ -15,12 +15,12 @@ const pristine = new Pristine(uploadForm, {
 
 const commentValidator = (value) => stringLengthValidation(value, 100);
 pristine.addValidator(postDescription, commentValidator,
-  'Значение поля «Комментарий» должно быть строкой с максимальной длиной 100 символов.');
+  'Значение поля \'Комментарий\' должно быть строкой с максимальной длиной 100 символов.');
 
 const hashtagRegularExpression = /(^#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?)((\b\s#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?){1,4})?$/;
 const hashtagValidator = (value) => hashtagRegularExpression.test(value);
 pristine.addValidator(postHashtag, hashtagValidator,
-  'Поле «Хештег» имеет неверный формат');
+  'Поле \'Хештег\' имеет неверный формат');
 
 const duplicateHashtagValidator = (value) => {
   if(!value) {
