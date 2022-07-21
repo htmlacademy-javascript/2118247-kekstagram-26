@@ -1,4 +1,4 @@
-import {randomNumber, stringLengthValidation} from './helper.js';
+import {randomNumber, stringLengthValidation} from './util.js';
 
 const maleNames = ['Александр', 'Максим', 'Михаил', 'Марк', 'Иван', 'Артем', 'Лев', 'Дмитрий', 'Матвей', 'Даниил'];
 const femaleNames = ['София', 'Анна', 'Мария', 'Алиса', 'Ева', 'Виктория', 'Полина', 'Варвара', 'Александра', 'Анастасия'];
@@ -31,8 +31,6 @@ function generatePosts() {
 
 function generateComments()
 {
-  const maxCommentLen = 100;
-
   const comments = [];
   for (let i = 0; i <= randomNumber(0,10); i++) {
 
@@ -51,7 +49,7 @@ function generateComments()
     const comment = {
       id: id,
       avatar: `img/avatar-${  [randomNumber(1,6)]  }.svg`,
-      message: stringLengthValidation(message, maxCommentLen)
+      message: stringLengthValidation(message, 140)
         ? message
         : '',
       name: randomNumber(0, 1)
