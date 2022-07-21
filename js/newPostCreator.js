@@ -16,7 +16,6 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'text-error'
 });
 
-
 const commentError = `Комментарий не должен быть длиннее ${MAX_COMMENT_LENGTH} символов`;
 const commentValidator = (value) => stringLengthValidation(value, MAX_COMMENT_LENGTH);
 pristine.addValidator(postDescription, commentValidator, commentError);
@@ -35,8 +34,9 @@ const duplicateHashtagValidator = (value) => {
 };
 pristine.addValidator(postHashtag, duplicateHashtagValidator, duplicateHashtagError);
 
-uploadForm.addEventListener('submit', (evt) => {
-  if(!pristine.validate()) {
+uploadForm.addEventListener('submit',(evt) => {
+  const valid = pristine.validate();
+  if(!valid) {
     evt.preventDefault();
   }
 });
