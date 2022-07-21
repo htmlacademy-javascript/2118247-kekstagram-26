@@ -1,4 +1,4 @@
-import {stringLengthValidation} from "./helper.js";
+import {stringLengthValidation} from './helper.js';
 
 const MAX_COMMENT_LENGTH = 140;
 const RE_HASHTAG = /(^#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?)((\b\s#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?){1,4})?$/;
