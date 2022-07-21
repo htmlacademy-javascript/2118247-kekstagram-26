@@ -31,8 +31,9 @@ function generatePosts() {
 
 function generateComments()
 {
-  const comments = [];
+  const maxCommentLen = 100;
 
+  const comments = [];
   for (let i = 0; i <= randomNumber(0,10); i++) {
 
     let id = 0;
@@ -50,7 +51,7 @@ function generateComments()
     const comment = {
       id: id,
       avatar: `img/avatar-${  [randomNumber(1,6)]  }.svg`,
-      message: stringLengthValidation(message, 1000)
+      message: stringLengthValidation(message, maxCommentLen)
         ? message
         : '',
       name: randomNumber(0, 1)
