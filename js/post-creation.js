@@ -1,4 +1,7 @@
-import {stringLengthValidation} from "./helper.js";
+import {stringLengthValidation} from './util.js';
+
+const MAX_COMMENT_LENGTH = 140;
+const RE_HASHTAG = /(^#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?)((\b\s#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?){1,4})?$/;
 
 const uploadForm = document.querySelector('.img-upload__form');
 const editForm = uploadForm.querySelector('.img-upload__overlay');
@@ -13,15 +16,15 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'text-error'
 });
 
-const commentValidator = (value) => stringLengthValidation(value, 100);
-pristine.addValidator(postDescription, commentValidator,
-  'Значение поля \'Комментарий\' должно быть строкой с максимальной длиной 100 символов.');
+const commentError = `Комментарий не должен быть длиннее ${MAX_COMMENT_LENGTH} символов`;
+const commentValidator = (value) => stringLengthValidation(value, MAX_COMMENT_LENGTH);
+pristine.addValidator(postDescription, commentValidator, commentError);
 
-const hashtagRegularExpression = /(^#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?)((\b\s#[A-Za-zА-Яа-яЁё0-9]{1,20}\b\s?){1,4})?$/;
-const hashtagValidator = (value) => hashtagRegularExpression.test(value);
-pristine.addValidator(postHashtag, hashtagValidator,
-  'Поле \'Хештег\' имеет неверный формат');
+const hashtagError = 'Поле имеет неверный формат';
+const hashtagValidator = (value) =>  RE_HASHTAG.test(value);
+pristine.addValidator(postHashtag, hashtagValidator, hashtagError);
 
+const duplicateHashtagError = 'Хештеги не должны быть одинаковыми';
 const duplicateHashtagValidator = (value) => {
   if(!value) {
     return true;
@@ -29,12 +32,11 @@ const duplicateHashtagValidator = (value) => {
   const hashtags = value.replace(/ +/,' ').trim().toLowerCase().split(' ');
   return hashtags.length === new Set(hashtags).size;
 };
+pristine.addValidator(postHashtag, duplicateHashtagValidator, duplicateHashtagError);
 
-pristine.addValidator(postHashtag, duplicateHashtagValidator,
-  'Хештеги не должны быть одинаковыми');
-
-uploadForm.addEventListener('submit', (evt) => {
-  if(!pristine.validate()) {
+uploadForm.addEventListener('submit',(evt) => {
+  const valid = pristine.validate();
+  if(!valid) {
     evt.preventDefault();
   }
 });
