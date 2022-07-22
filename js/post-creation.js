@@ -137,7 +137,7 @@ const deleteEffectFromPost = () => {
   uploadPreview.classList.add('effects__preview--none');
   uploadEffectLevel.classList.add('hidden');
   uploadPreview.removeAttribute('style');
-}
+};
 
 noUiSlider.create(effectLevelSlider,getUpdateSlider());
 
