@@ -80,7 +80,7 @@ const escapeKeydown = (evt) => {
   }
 };
 
-const postFullScreenRendering = (post) => {
+const renderFullScreenPost = (post) => {
   fullScreenPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
   fullScreenPicture.querySelector('.big-picture__img').querySelector('img').src = post.url;
@@ -98,4 +98,4 @@ const postFullScreenRendering = (post) => {
   window.addEventListener('keydown', escapeKeydown);
 };
 
-export {postFullScreenRendering};
+export {renderFullScreenPost};
