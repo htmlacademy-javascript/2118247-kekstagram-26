@@ -7,18 +7,18 @@ const errorButton = errorMessage.querySelector('.error__button');
 
 let activeMessage;
 
+const closeMessage = () => {
+  document.body.removeChild(activeMessage);
+  window.removeEventListener('keydown', escapeKeydown, true);
+  window.removeEventListener('click', onClickMessageForm);
+};
+
 function escapeKeydown(evt) {
   if(checkEscapeKeydown(evt)){
     evt.stopImmediatePropagation();
     closeMessage();
   }
 }
-
-const closeMessage = () => {
-  document.body.removeChild(activeMessage);
-  window.removeEventListener('keydown',escapeKeydown, true);
-  window.removeEventListener('click',onClickMessageForm);
-};
 
 function onClickMessageForm (evt) {
   if (evt.target === activeMessage){
@@ -30,9 +30,9 @@ const showSuccessMessage = () => {
   activeMessage = successMessage;
   document.body.appendChild(successMessage);
 
-  successButton.addEventListener('click', closeMessage, { once:true });
-  window.addEventListener('keydown',escapeKeydown);
-  window.addEventListener('click',onClickMessageForm);
+  successButton.addEventListener('click', closeMessage, { once: true });
+  window.addEventListener('keydown', escapeKeydown);
+  window.addEventListener('click', onClickMessageForm);
 };
 
 const showErrorMessage = () => {
@@ -40,8 +40,8 @@ const showErrorMessage = () => {
   document.body.appendChild(errorMessage);
 
   errorButton.addEventListener('click', closeMessage, { once:true });
-  window.addEventListener('keydown',escapeKeydown);
-  window.addEventListener('click',onClickMessageForm);
+  window.addEventListener('keydown', escapeKeydown);
+  window.addEventListener('click', onClickMessageForm);
 };
 
 export {showSuccessMessage, showErrorMessage};
