@@ -1,3 +1,5 @@
+import {checkEscapeKeydown} from './util.js';
+
 const SHOWN_COMMENTS_AMOUNT = 5;
 
 const fullScreenPicture = document.querySelector('.big-picture');
@@ -66,17 +68,20 @@ const showAllComments = (comments) => {
   socialComments.innerHTML = allComments;
 };
 
-const close = () => {
+const closeFullScreen = () => {
   fullScreenPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  closeButton.removeEventListener('click', close);
-  window.removeEventListener('keydown', close);
+  closeButton.removeEventListener('click', closeFullScreen);
+  document.removeEventListener('keydown', closeFullScreen);
+
+  uploadComments.onclick  = null;
+  uploadComments.classList.remove('hidden');
 };
 
 const escapeKeydown = (evt) => {
-  if(evt.key === 'Escape'){
-    close();
+  if(checkEscapeKeydown(evt)){
+    closeFullScreen();
   }
 };
 
@@ -94,8 +99,8 @@ const renderFullScreenPost = (post) => {
   hideExtraComments(allComments);
   uploadComments.onclick = getMoreComments(allComments);
 
-  closeButton.addEventListener('click', close);
-  window.addEventListener('keydown', escapeKeydown);
+  closeButton.addEventListener('click', closeFullScreen);
+  document.addEventListener('keydown', escapeKeydown);
 };
 
 export {renderFullScreenPost};
