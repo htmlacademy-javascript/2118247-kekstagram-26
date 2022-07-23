@@ -1,5 +1,5 @@
 import {debounce, randomNumber} from './util.js';
-import {renderPosts} from "./posts-rendering.js";
+import {renderPosts} from './posts-rendering.js';
 
 const POST_MAX_COUNT = 10;
 const RERENDER_DELAY = 500;
@@ -28,11 +28,12 @@ const filterPostsRandom = (posts) => {
   const min = 0;
   const max = posts.length - 1;
 
-  let randomPostsIndexes = [];
+  const randomPostsIndexes = [];
   for (let i = 0; i < POST_MAX_COUNT; i++) {
-    let randomIndex = randomNumber(min, max)
-    if(!randomPostsIndexes.includes(randomIndex))
+    const randomIndex = randomNumber(min, max);
+    if(!randomPostsIndexes.includes(randomIndex)) {
       randomPostsIndexes.push(randomIndex);
+    }
   }
 
   return randomPostsIndexes.map((index) => posts[index]);
