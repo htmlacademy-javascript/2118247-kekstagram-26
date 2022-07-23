@@ -204,7 +204,7 @@ function escapeKeydown (evt) {
   if(checkEscapeKeydown(evt)){
     closePostCreation();
   }
-};
+}
 
 function postSubmitting(evt) {
   evt.preventDefault();
