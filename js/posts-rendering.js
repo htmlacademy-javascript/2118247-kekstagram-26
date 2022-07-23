@@ -1,3 +1,5 @@
+import {renderFullScreenPost} from './post-full-screen-rendering.js';
+
 const pictureBlock = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -10,6 +12,10 @@ const renderPosts = (posts) => {
     picture.querySelector('.picture__likes').textContent = post.likes;
     picture.querySelector('.picture__comments').textContent = post.comments.length;
 
+    picture.addEventListener('click', () => {
+      renderFullScreenPost(post);
+    });
+
     picture.dataset.postId = post.id;
     pictures.appendChild(picture);
   });
@@ -17,13 +23,4 @@ const renderPosts = (posts) => {
   pictureBlock.appendChild(pictures);
 };
 
-const bindPostClickEvent = (callback) => {
-  pictureBlock.addEventListener('click', (evt) => {
-    const picture = evt.target.closest('.picture');
-    if (picture) {
-      callback(picture.dataset.postId);
-    }
-  });
-};
-
-export {renderPosts, bindPostClickEvent};
+export {renderPosts};
