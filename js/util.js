@@ -1,10 +1,6 @@
-function randomNumber(min, max)
-{
-  if(min > max || min < 0) {
-    throw Error;
-  }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const ALERT_SHOW_TIME = 5000;
+const KEY_ESC = 'Escape';
+const checkEscapeKeydown = (evt) => evt.key === KEY_ESC;
 
 function stringLengthValidation(str, maxLen)
 {
@@ -14,5 +10,18 @@ function stringLengthValidation(str, maxLen)
   return(false);
 }
 
-export {randomNumber, stringLengthValidation};
+const showAlert = (message) => {
+
+  const alertDiv = document.createElement('div');
+  alertDiv.classList.add('alertError');
+
+  alertDiv.textContent = message;
+  document.body.appendChild(alertDiv);
+
+  setTimeout(() => {
+    alertDiv.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {checkEscapeKeydown, stringLengthValidation, showAlert};
 
