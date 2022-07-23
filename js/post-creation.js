@@ -74,61 +74,6 @@ uploadForm.addEventListener('submit',(evt) => {
   }
 });
 
-const applySelectedEffect = (evt) => {
-  uploadPreview.classList.value = null;
-
-  switch (evt.target.value) {
-    case FILTER_TYPE.NONE:
-      deleteEffectFromPost();
-      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider());
-      break;
-    case FILTER_TYPE.CHROME:
-      applyEffectToPost('effects__preview--chrome',FILTER_CSS_VALUE.chrome);
-      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider());
-      break;
-    case FILTER_TYPE.SEPIA:
-      applyEffectToPost('effects__preview--sepia',FILTER_CSS_VALUE.sepia);
-      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider());
-      break;
-    case FILTER_TYPE.MARVIN:
-      applyEffectToPost('effects__preview--marvin',FILTER_CSS_VALUE.marvin);
-      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider(0,100,100,1,'%'));
-      break;
-    case FILTER_TYPE.PHOBOS:
-      applyEffectToPost('effects__preview--phobos',FILTER_CSS_VALUE.phobos);
-      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider(0,3,3,0.1,'px'));
-      break;
-    case FILTER_TYPE.HEAT:
-      applyEffectToPost('effects__preview--heat',FILTER_CSS_VALUE.heat);
-      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider(1,3,3,0.1));
-      break;
-  }
-};
-
-const escapeKeydown = (evt) => {
-  if(checkEscapeKeydown(evt)){
-    closePostCreation();
-  }
-};
-
-const closePostCreation = () => {
-  editForm.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', escapeKeydown);
-
-  uploadForm.reset();
-  pristine.reset();
-
-  closeFormButton.removeEventListener('click', closePostCreation);
-  effectsList.removeEventListener('change', applySelectedEffect);
-  editForm.removeEventListener('submit', postSubmitting);
-  uploadPreview.removeAttribute('style');
-
-  effectLevelSlider.noUiSlider.reset();
-  uploadPreview.classList.value = null;
-  currentEffect = null;
-};
-
 uploadScale.addEventListener('click',(evt) => {
   const scaleSmaller = evt.target.closest('.scale__control--smaller');
   const scaleBigger = evt.target.closest('.scale__control--bigger');
@@ -192,6 +137,55 @@ effectLevelSlider.noUiSlider.on('update', () => {
   uploadPreview.style.filter = `${currentEffect}(${level})`;
 });
 
+const applySelectedEffect = (evt) => {
+  uploadPreview.classList.value = null;
+
+  switch (evt.target.value) {
+    case FILTER_TYPE.NONE:
+      deleteEffectFromPost();
+      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider());
+      break;
+    case FILTER_TYPE.CHROME:
+      applyEffectToPost('effects__preview--chrome',FILTER_CSS_VALUE.chrome);
+      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider());
+      break;
+    case FILTER_TYPE.SEPIA:
+      applyEffectToPost('effects__preview--sepia',FILTER_CSS_VALUE.sepia);
+      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider());
+      break;
+    case FILTER_TYPE.MARVIN:
+      applyEffectToPost('effects__preview--marvin',FILTER_CSS_VALUE.marvin);
+      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider(0,100,100,1,'%'));
+      break;
+    case FILTER_TYPE.PHOBOS:
+      applyEffectToPost('effects__preview--phobos',FILTER_CSS_VALUE.phobos);
+      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider(0,3,3,0.1,'px'));
+      break;
+    case FILTER_TYPE.HEAT:
+      applyEffectToPost('effects__preview--heat',FILTER_CSS_VALUE.heat);
+      effectLevelSlider.noUiSlider.updateOptions(getUpdateSlider(1,3,3,0.1));
+      break;
+  }
+};
+
+const closePostCreation = () => {
+  editForm.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', escapeKeydown);
+
+  uploadForm.reset();
+  pristine.reset();
+
+  closeFormButton.removeEventListener('click', closePostCreation);
+  effectsList.removeEventListener('change', applySelectedEffect);
+  editForm.removeEventListener('submit', postSubmitting);
+  uploadPreview.removeAttribute('style');
+
+  effectLevelSlider.noUiSlider.reset();
+  uploadPreview.classList.value = null;
+  currentEffect = null;
+};
+
 export const createNewPost = () => {
   uploadFileButton.addEventListener('change', () => {
     editForm.classList.remove('hidden');
@@ -204,6 +198,12 @@ export const createNewPost = () => {
     window.addEventListener('keydown', escapeKeydown);
     uploadForm.addEventListener('submit', postSubmitting);
   });
+};
+
+function escapeKeydown (evt) {
+  if(checkEscapeKeydown(evt)){
+    closePostCreation();
+  }
 };
 
 function postSubmitting(evt) {
