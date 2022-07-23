@@ -1,4 +1,4 @@
-import {showAlert} from './util.js';
+import {showMessage} from './util.js';
 
 const getDataError = 'Ошибка получения данных';
 
@@ -6,7 +6,7 @@ const getData = (onSuccess) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((posts) => onSuccess(posts))
-    .catch(() => showAlert(getDataError));
+    .catch(() => showMessage(getDataError));
 };
 
 const sendData = (onSuccess, onFail, body) => {

@@ -1,4 +1,5 @@
 import {checkEscapeKeydown, stringLengthValidation} from './util.js';
+import {showMessage} from './util.js';
 import {showSuccessMessage, showErrorMessage} from './post-creation-submit-message.js';
 import {sendData} from './api.js';
 
@@ -33,7 +34,6 @@ const FILTER_CSS_VALUE = {
 
 const uploadForm = document.querySelector('.img-upload__form');
 const editForm = uploadForm.querySelector('.img-upload__overlay');
-const uploadFileButton = uploadForm.querySelector('.img-upload__input');
 const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
 const postHashtag = uploadForm.querySelector('.text__hashtags');
 const postDescription = uploadForm.querySelector('.text__description');
@@ -186,19 +186,30 @@ const closePostCreation = () => {
   currentEffect = null;
 };
 
-export const createNewPost = () => {
-  uploadFileButton.addEventListener('change', () => {
-    editForm.classList.remove('hidden');
-    document.body.classList.add('modal-open');
+function createNewPost() {
+  const file = this.files[0];
+  if (!file.type.startsWith('image/')) {
+    showMessage('Не удалось загрузить изображение');
+    return;
+  }
 
-    effectsList.addEventListener('change', applySelectedEffect);
-    uploadEffectLevel.classList.add('hidden');
+  editForm.classList.remove('hidden');
+  document.body.classList.add('modal-open');
 
-    closeFormButton.addEventListener('click', closePostCreation);
-    window.addEventListener('keydown', escapeKeydown);
-    uploadForm.addEventListener('submit', postSubmitting);
-  });
-};
+  effectsList.addEventListener('change', applySelectedEffect);
+  uploadEffectLevel.classList.add('hidden');
+
+  closeFormButton.addEventListener('click', closePostCreation);
+  window.addEventListener('keydown', escapeKeydown);
+  uploadForm.addEventListener('submit', postSubmitting);
+
+  const fileReader = new FileReader();
+  fileReader.onload = (evt) => {
+    uploadPreview.src = evt.target.result;
+  };
+
+  fileReader.readAsDataURL(file);
+}
 
 function escapeKeydown (evt) {
   if(checkEscapeKeydown(evt)){

@@ -18,16 +18,15 @@ function stringLengthValidation(str, maxLen)
   return(false);
 }
 
-const showAlert = (message) => {
+const showMessage = (message) => {
+  const div = document.createElement('div');
+  div.classList.add('message');
 
-  const alertDiv = document.createElement('div');
-  alertDiv.classList.add('alertError');
-
-  alertDiv.textContent = message;
-  document.body.appendChild(alertDiv);
+  div.textContent = message;
+  document.body.appendChild(div);
 
   setTimeout(() => {
-    alertDiv.remove();
+    div.remove();
   }, ALERT_SHOW_TIME);
 };
 
@@ -39,4 +38,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {randomNumber, checkEscapeKeydown, stringLengthValidation, showAlert, debounce};
+export {randomNumber, checkEscapeKeydown, stringLengthValidation, showMessage, debounce};
