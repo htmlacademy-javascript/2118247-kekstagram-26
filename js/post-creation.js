@@ -189,7 +189,7 @@ const closePostCreation = () => {
 function createNewPost() {
   const file = this.files[0];
   if (!file.type.startsWith('image/')) {
-    showMessage("Не удалось загрузить изображение")
+    showMessage('Не удалось загрузить изображение');
     return;
   }
 
