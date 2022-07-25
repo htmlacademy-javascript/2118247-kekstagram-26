@@ -1409,9 +1409,9 @@ main {
   display: none;
 }
 
-.alertError {
+.message {
   position: absolute;
-  top: 50%;
+  top: 30%;
   width:100%;
   z-index:99;
 
