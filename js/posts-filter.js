@@ -4,18 +4,18 @@ import {renderPosts} from './posts-rendering.js';
 const POST_MAX_COUNT = 10;
 const RERENDER_DELAY = 500;
 
-const pictureBlock = document.querySelector('.pictures');
-const filters = document.querySelector('.img-filters');
-const filtersForm = filters.querySelector('.img-filters__form');
-const filterButton = filters.querySelectorAll('.img-filters__button');
+const pictureBlockElement = document.querySelector('.pictures');
+const filtersElement = document.querySelector('.img-filters');
+const filtersFormElement = filtersElement.querySelector('.img-filters__form');
+const filterButtonElement = filtersElement.querySelectorAll('.img-filters__button');
 
 const showFilterPosts = () => {
-  filters.classList.remove('img-filters--inactive');
-  filters.classList.add('img-filters--active');
+  filtersElement.classList.remove('img-filters--inactive');
+  filtersElement.classList.add('img-filters--active');
 };
 
 const enableFilterPosts = () => {
-  filterButton.forEach((button) => {
+  filterButtonElement.forEach((button) => {
     button.disabled = false;
   });
 };
@@ -46,7 +46,7 @@ const changeFilterClassName = (filterName) => {
 };
 
 const clearOldPosts = () => {
-  const posts = pictureBlock.querySelectorAll('.picture');
+  const posts = pictureBlockElement.querySelectorAll('.picture');
 
   posts.forEach((post) => {
     post.remove();
@@ -78,7 +78,7 @@ const postFilterChange = debounce((evt, userPosts) => {
 }, RERENDER_DELAY);
 
 const initPostsFilter = (userPosts) => {
-  filtersForm.addEventListener('click', (evt) => postFilterChange(evt, userPosts));
+  filtersFormElement.addEventListener('click', (evt) => postFilterChange(evt, userPosts));
   showFilterPosts();
   enableFilterPosts();
 };

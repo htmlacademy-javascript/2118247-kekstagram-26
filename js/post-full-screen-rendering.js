@@ -2,14 +2,14 @@ import {checkEscapeKeydown} from './util.js';
 
 const SHOWN_COMMENTS_AMOUNT = 5;
 
-const fullScreenPicture = document.querySelector('.big-picture');
-const socialComments = fullScreenPicture.querySelector('.social__comments');
-const socialCommentCount = fullScreenPicture.querySelector('.social__comment-count');
-const uploadComments = fullScreenPicture.querySelector('.social__comments-loader');
-const closeButton = fullScreenPicture.querySelector('.big-picture__cancel');
+const fullScreenPictureElement = document.querySelector('.big-picture');
+const socialCommentsElement = fullScreenPictureElement.querySelector('.social__comments');
+const socialCommentCountElement = fullScreenPictureElement.querySelector('.social__comment-count');
+const uploadCommentsElement = fullScreenPictureElement.querySelector('.social__comments-loader');
+const closeButtonElement = fullScreenPictureElement.querySelector('.big-picture__cancel');
 
 const getCommentsAmount = (value) => {
-  socialCommentCount.childNodes[0].textContent = `${value} из `;
+  socialCommentCountElement.childNodes[0].textContent = `${value} из `;
 };
 
 const hideExtraComments = (comments) => {
@@ -24,7 +24,7 @@ const getMoreComments = (comments) => {
 
   if(commentsAmount <= SHOWN_COMMENTS_AMOUNT) {
     getCommentsAmount(commentsAmount);
-    uploadComments.classList.add('hidden');
+    uploadCommentsElement.classList.add('hidden');
     return;
   }
 
@@ -43,7 +43,7 @@ const getMoreComments = (comments) => {
     if (availableAmount <= SHOWN_COMMENTS_AMOUNT) {
       shownCommentsAmount += availableAmount;
       getCommentsAmount(shownCommentsAmount);
-      uploadComments.classList.add('hidden');
+      uploadCommentsElement.classList.add('hidden');
       return;
     }
 
@@ -65,18 +65,18 @@ const showAllComments = (comments) => {
        <p class="social__text">${comment.message}</p>
       </li>`;
   });
-  socialComments.innerHTML = allComments;
+  socialCommentsElement.innerHTML = allComments;
 };
 
 const closeFullScreen = () => {
-  fullScreenPicture.classList.add('hidden');
+  fullScreenPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  closeButton.removeEventListener('click', closeFullScreen);
+  closeButtonElement.removeEventListener('click', closeFullScreen);
   document.removeEventListener('keydown', closeFullScreen);
 
-  uploadComments.onclick  = null;
-  uploadComments.classList.remove('hidden');
+  uploadCommentsElement.onclick  = null;
+  uploadCommentsElement.classList.remove('hidden');
 };
 
 const escapeKeydown = (evt) => {
@@ -86,20 +86,20 @@ const escapeKeydown = (evt) => {
 };
 
 const renderFullScreenPost = (post) => {
-  fullScreenPicture.classList.remove('hidden');
+  fullScreenPictureElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  fullScreenPicture.querySelector('.big-picture__img').querySelector('img').src = post.url;
-  fullScreenPicture.querySelector('.likes-count').textContent = post.likes;
-  fullScreenPicture.querySelector('.comments-count').textContent = post.comments.length;
-  fullScreenPicture.querySelector('.social__caption').textContent = post.description;
+  fullScreenPictureElement.querySelector('.big-picture__img').querySelector('img').src = post.url;
+  fullScreenPictureElement.querySelector('.likes-count').textContent = post.likes;
+  fullScreenPictureElement.querySelector('.comments-count').textContent = post.comments.length;
+  fullScreenPictureElement.querySelector('.social__caption').textContent = post.description;
 
   showAllComments(post.comments);
 
-  const allComments = Array.from(socialComments.querySelectorAll('li'));
+  const allComments = Array.from(socialCommentsElement.querySelectorAll('li'));
   hideExtraComments(allComments);
-  uploadComments.onclick = getMoreComments(allComments);
+  uploadCommentsElement.onclick = getMoreComments(allComments);
 
-  closeButton.addEventListener('click', closeFullScreen);
+  closeButtonElement.addEventListener('click', closeFullScreen);
   document.addEventListener('keydown', escapeKeydown);
 };
 
