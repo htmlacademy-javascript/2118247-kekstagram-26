@@ -59,7 +59,7 @@ const validateHashtag = (value) =>  {
     return true;
   }
   return RE_HASHTAG.test(value);
-}
+};
 const validateDuplicateHashtag = (value) => {
   if(!value) {
     return true;
@@ -218,9 +218,9 @@ const createNewPost = () => {
 
 function escapeKeydown (evt) {
   if(checkEscapeKeydown(evt)){
-      if (evt.target.matches('input') && evt.target.type === 'text' || evt.target.matches('textarea')) {
-        return;
-      }
+    if (evt.target.matches('input') && evt.target.type === 'text' || evt.target.matches('textarea')) {
+      return;
+    }
     closePostCreation();
   }
 }
