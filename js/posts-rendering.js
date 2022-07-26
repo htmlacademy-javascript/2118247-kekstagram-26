@@ -1,26 +1,26 @@
 import {renderFullScreenPost} from './post-full-screen-rendering.js';
 
-const pictureBlock = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureBlockElement = document.querySelector('.pictures');
+const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderPosts = (posts) => {
   const pictures = document.createDocumentFragment();
 
   posts.forEach((post) => {
-    const picture = pictureTemplate.cloneNode(true);
-    picture.querySelector('.picture__img').src = post.url;
-    picture.querySelector('.picture__likes').textContent = post.likes;
-    picture.querySelector('.picture__comments').textContent = post.comments.length;
+    const pictureElement = pictureTemplateElement.cloneNode(true);
+    pictureElement.querySelector('.picture__img').src = post.url;
+    pictureElement.querySelector('.picture__likes').textContent = post.likes;
+    pictureElement.querySelector('.picture__comments').textContent = post.comments.length;
 
-    picture.addEventListener('click', () => {
+    pictureElement.addEventListener('click', () => {
       renderFullScreenPost(post);
     });
 
-    picture.dataset.postId = post.id;
-    pictures.appendChild(picture);
+    pictureElement.dataset.postId = post.id;
+    pictures.appendChild(pictureElement);
   });
 
-  pictureBlock.appendChild(pictures);
+  pictureBlockElement.appendChild(pictures);
 };
 
 export {renderPosts};
