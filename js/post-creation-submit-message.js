@@ -1,9 +1,9 @@
 import {checkEscapeKeydown} from './util.js';
 
-const successMessage = document.querySelector('#success').content.querySelector('.success');
-const errorMessage = document.querySelector('#error').content.querySelector('.error');
-const successButton = successMessage.querySelector('.success__button');
-const errorButton = errorMessage.querySelector('.error__button');
+const successMessageElement = document.querySelector('#success').content.querySelector('.success');
+const errorMessageElement = document.querySelector('#error').content.querySelector('.error');
+const successButtonElement = successMessageElement.querySelector('.success__button');
+const errorButtonElement = errorMessageElement.querySelector('.error__button');
 
 let activeMessage;
 
@@ -27,19 +27,19 @@ function onClickMessageForm (evt) {
 }
 
 const showSuccessMessage = () => {
-  activeMessage = successMessage;
-  document.body.appendChild(successMessage);
+  activeMessage = successMessageElement;
+  document.body.appendChild(successMessageElement);
 
-  successButton.addEventListener('click', closeMessage, { once: true });
+  successButtonElement.addEventListener('click', closeMessage, { once: true });
   window.addEventListener('keydown', escapeKeydown);
   window.addEventListener('click', onClickMessageForm);
 };
 
 const showErrorMessage = () => {
-  activeMessage = errorMessage;
-  document.body.appendChild(errorMessage);
+  activeMessage = errorMessageElement;
+  document.body.appendChild(errorMessageElement);
 
-  errorButton.addEventListener('click', closeMessage, { once:true });
+  errorButtonElement.addEventListener('click', closeMessage, { once:true });
   window.addEventListener('keydown', escapeKeydown);
   window.addEventListener('click', onClickMessageForm);
 };
